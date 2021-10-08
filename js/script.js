@@ -45,7 +45,7 @@ guessButton.addEventListener("click", function(e) {
 //step 3 - Function to validate user input against conditions
 const checkInput = function(input) {
     const acceptedLetter = /[a-zA-Z]/; //regular expression to make sure user inputs a letter
-    if(input.value === "") {
+    if(input.length === 0) {
         messagePara.innerHTML = "Whoops, you forgot to guess a letter!";
     } else if (input.length > 1) {
         messagePara.innerHTML = `Whoa there, just one letter at a time. You typed in ${input.length} letters, silly!`
@@ -57,16 +57,58 @@ const checkInput = function(input) {
     }
 };
 
-/*Finally, you’ll write a second function that captures the player’s guess to see if they’ve already guessed that letter. If not, the function pushes the letter to an array of guessed letters.*/
+/*write a second function that captures the player’s guess to see if they’ve already guessed that letter. If not, the function pushes the letter to an array of guessed letters.*/
 //word variable "makeGuess" array created above
 
-const makeGuess = function(lettersGuessed) {
-    lettersGuessed = lettersGuessed.toUpperCase(); 
-        if (guessedLetters.includes(lettersGuessed)) {
+const makeGuess = function(guessed) {
+    guessed = guessed.toUpperCase(); 
+        if (guessedLetters.includes(guessed)) {
             messagePara.innerHTML = `Whoops! You guessed the letter ${txtInput.value.toUpperCase()} already. Please try again.`;
         } else {
-            guessedLetters.push(lettersGuessed);
+            guessedLetters.push(guessed);
             console.log(guessedLetters);
+            updateGuesses(guessed);
+        } 
+        updateWord(guessedLetters);
+};
+
+//Create a Function to Show the Guessed Letters
+
+const updateGuesses = function(input) {
+    lettersGuessed.innerHTML = ""; //clears list each time user makes a guess
+    //Create a new list item for each letter inside your guessedLetters array (i.e., the global variable) and add it to the unordered list.
+    for (let letter of guessedLetters) {
+        let li = document.createElement("li");
+        li.innerHTML = letter; //need to create list with prior and new letter each time user clicks/makes a guess
+        lettersGuessed.append(li);
+    }
+};
+
+//Create a Function to Update the Word in Progress
+const updateWord = function(guessedLetters) {
+    const wordUpper = word.toUpperCase();
+    //split the word string into an array so it can appear in the guessedLetters array.
+    const wordArray = wordUpper.split("");
+    //console.log(wordArray); //Array(8) [ "M", "A", "G", "N", "O", "L", "I", "A" ]
+    //Check if the wordArray contains any letters from the guessedLetters array.
+    const wordInProgress = []; //create a new array to hold correctly guessed letters and placeholder dots
+    for (let letter of wordArray) { //loop over wordArray to check for any correctly guessed letters
+        if (guessedLetters.includes(letter)) {
+            wordInProgress.push(letter); //push correctly guessed letters into the new array
+        } else {
+            wordInProgress.push("●") //push placeholder dots for letters not yet guessed.
         }
+    }
+    console.log(wordInProgress);
+    inProgress.innerText = wordInProgress.join(""); //join the letters in the array and display in the paragraph for word that is in progress
+    //console.log(inProgress);
+    checkWin();
+};
+
+const checkWin = function() {
+    if(word.toUpperCase() === inProgress.innerText) {
+        messagePara.classList.add("win");
+        messagePara.innerHTML = `<p class="highlight">You guessed the word!!! Hoooooray! 🎉  Congrats! 🏆</p>`;
+    }
 };
 

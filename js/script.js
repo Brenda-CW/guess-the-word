@@ -113,15 +113,14 @@ const updateWord = function(guessedLetters) {
 const countGuesses = function(guess) {
     const wordUpper = word.toUpperCase();
     const wordArray = wordUpper.split("");
-        for (let letter of wordArray) { //loop over wordArray to check for any correctly guessed letters
-            if (wordArray.includes(guess)) {
-                messagePara.innerHTML = `Nice guess! ${guess} is in the word.`;
-            } else {
-                messagePara.innerHTML = `Oh, sorry. The word does not contain the letter ${guess}.`;
-            }
-        };
-    remainingGuesses -= 1;
-    console.log(remainingGuesses);
+
+        if (wordArray.includes(guess)) {
+            messagePara.innerHTML = `Nice guess! ${guess} is in the word.`;
+        } else {
+            messagePara.innerHTML = `Oh, sorry. The word does not contain the letter ${guess}.`;
+            remainingGuesses -= 1;
+            console.log(remainingGuesses);
+        }
 
         if (remainingGuesses === 0) {
             guessesRemaining.innerHTML =  `Oh no! You are all out of guesses. The word was ${word}. Better luck next time!`;

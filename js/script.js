@@ -14,13 +14,16 @@ const span = document.querySelector("span");
 const messagePara = document.querySelector(".message");
 //hidden button that will appear at end of game so user can play again
 const playAgainButton = document.querySelector(".play-again");
-
-const word = "magnolia"; //starting word until API fetch is in place
-const guessedLetters = []; //empty array where guessed letters will be collected
+//starting word until API fetch is in place
+const word = "magnolia"; 
+//empty array where guessed letters will be collected
+const guessedLetters = []; 
+//variable that will track number of guesses - will change over time
+let remainingGuesses = 8;
 
 //Step 2 - Function that will add placeholders for each letter
 const inProgressDots = function (word) {
-    const wordArray = []; //create an empty array
+    const wordArray = []; //create an empty array to hold letters of the word
     for (let letter of word) { //iterate over the word
         //console.log(letter);
         wordArray.push("●"); //add a dot to WordArray for each letter of variable word 
@@ -69,10 +72,11 @@ const makeGuess = function(guessed) {
             console.log(guessedLetters);
             updateGuesses(guessed);
         } 
+        countGuesses(guessed);
         updateWord(guessedLetters);
 };
 
-//Create a Function to Show the Guessed Letters
+//Step 4: Create a Function to Show the Guessed Letters
 
 const updateGuesses = function(input) {
     lettersGuessed.innerHTML = ""; //clears list each time user makes a guess
@@ -84,7 +88,7 @@ const updateGuesses = function(input) {
     }
 };
 
-//Create a Function to Update the Word in Progress
+//Step 4: Create a Function to Update the Word in Progress
 const updateWord = function(guessedLetters) {
     const wordUpper = word.toUpperCase();
     //split the word string into an array so it can appear in the guessedLetters array.
@@ -105,10 +109,37 @@ const updateWord = function(guessedLetters) {
     checkWin();
 };
 
+//Step 5: Create a function to count guesses remaining
+const countGuesses = function(guess) {
+    const wordUpper = word.toUpperCase();
+    const wordArray = wordUpper.split("");
+        for (let letter of wordArray) { //loop over wordArray to check for any correctly guessed letters
+            if (wordArray.includes(guess)) {
+                messagePara.innerHTML = `Nice guess! ${guess} is in the word.`;
+            } else {
+                messagePara.innerHTML = `Oh, sorry. The word does not contain the letter ${guess}.`;
+            }
+        };
+    remainingGuesses -= 1;
+    console.log(remainingGuesses);
+
+        if (remainingGuesses === 0) {
+            guessesRemaining.innerHTML =  `Oh no! You are all out of guesses. The word was ${word}. Better luck next time!`;
+            remainingGuesses = 8;
+        } else if (remainingGuesses === 1) {
+            span.innerHTML =  `just 1 guess`;
+        } else {
+            span.innerHTML = `${remainingGuesses} guesses`;
+        }
+};
+
+//Step 4: Create a function to check if the player won
 const checkWin = function() {
     if(word.toUpperCase() === inProgress.innerText) {
         messagePara.classList.add("win");
         messagePara.innerHTML = `<p class="highlight">You guessed the word!!! Hoooooray! 🎉  Congrats! 🏆</p>`;
     }
 };
+
+
 

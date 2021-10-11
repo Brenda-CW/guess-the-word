@@ -14,21 +14,40 @@ const span = document.querySelector("span");
 const messagePara = document.querySelector(".message");
 //hidden button that will appear at end of game so user can play again
 const playAgainButton = document.querySelector(".play-again");
+
 //starting word until API fetch is in place
-const word = "magnolia"; 
+let word = "magnolia"; 
 //empty array where guessed letters will be collected
 const guessedLetters = []; 
 //variable that will track number of guesses - will change over time
 let remainingGuesses = 8;
 
-//Step 2 - Function that will add placeholders for each letter
+//Step 5 - Add Async Function
+ 	
+/*const getWord = async function () {
+    const res = await fetch (
+        "https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt"
+        );
+     const words = await res.text();
+     //console.log(words);
+     const wordArray = words.split("/n"); //adds a delimeter to split the array of words with a line break
+     //console.log(wordArray);
+     const randomIndex = Math.floor(Math.random()* wordArray.length);
+     word = wordArray[randomIndex].trim();
+     inProgressDots(word);
+};
+
+getWord(); */
+
+
+//Step 2 - Placeholder Function that will add placeholder dots for each letter
 const inProgressDots = function (word) {
-    const wordArray = []; //create an empty array to hold letters of the word
+    const dotLetterHolderArray = []; //create an empty array to hold letters of the word
     for (let letter of word) { //iterate over the word
         //console.log(letter);
-        wordArray.push("●"); //add a dot to WordArray for each letter of variable word 
+        dotLetterHolderArray.push("●"); //add a dot to WordArray for each letter of variable word 
    }
-   inProgress.innerText = wordArray.join(""); //update the "word in progress" paragraph to be the contents of the array joined together with no separator.
+   inProgress.innerText = dotLetterHolderArray.join(""); //update the "word in progress" paragraph to be the contents of the array joined together with no separator.
 };
 inProgressDots(word);
 

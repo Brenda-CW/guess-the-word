@@ -143,7 +143,8 @@ const countGuesses = function(guess) {
         }
 
         if (remainingGuesses === 0) {
-            guessesRemaining.innerHTML =  `Oh no! You are all out of guesses. The word was ${word}. Better luck next time!`;
+            messagePara.innerHTML =  `Oh no! You are all out of guesses. The word was "${word.toUpperCase()}". Better luck next time! Click the button to play again!`;
+            startOver();
             remainingGuesses = 8;
         } else if (remainingGuesses === 1) {
             span.innerHTML =  `just 1 guess`;
@@ -157,7 +158,16 @@ const checkWin = function() {
     if(word.toUpperCase() === inProgress.innerText) {
         messagePara.classList.add("win");
         messagePara.innerHTML = `<p class="highlight">You guessed the word!!! Hoooooray! 🎉  Congrats! 🏆</p>`;
+        startOver();
     }
+};
+
+//Step 6: Play it Again!
+const startOver = function () {
+    guessButton.classList.add("hide");
+    guessesRemaining.classList.add("hide");
+    lettersGuessed.classList.add("hide");
+    playAgainButton.classList.remove("hide");
 };
 
 

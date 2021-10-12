@@ -36,7 +36,6 @@ const getWord = async function () {
      word = wordArray[randomIndex].trim();
      inProgressDots(word);
 };
-
 getWord(); 
 
 
@@ -49,7 +48,7 @@ const inProgressDots = function (word) {
    }
    inProgress.innerText = dotLetterHolderArray.join(""); //update the "word in progress" paragraph to be the contents of the array joined together with no separator.
 };
-inProgressDots(word);
+//inProgressDots(word);
 
 //Step 2 - event listener for button
 guessButton.addEventListener("click", function(e) {
@@ -80,11 +79,13 @@ const checkInput = function(input) {
 };
 
 /*write a second function that captures the player’s guess to see if they’ve already guessed that letter. If not, the function pushes the letter to an array of guessed letters.*/
-//word variable "makeGuess" array created above
+//word variable "guessedLetters" array created above
 
 const makeGuess = function(guessed) {
     guessed = guessed.toUpperCase(); 
+    console.log(guessed);
         if (guessedLetters.includes(guessed)) {
+            console.log(`${guessed} is a repeat!`);
             messagePara.innerHTML = `Whoops! You guessed the letter ${guessed} already. Please try again.`;
         } else {
             guessedLetters.push(guessed);

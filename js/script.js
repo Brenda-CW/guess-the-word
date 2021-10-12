@@ -24,20 +24,20 @@ let remainingGuesses = 8;
 
 //Step 5 - Add Async Function
  	
-/*const getWord = async function () {
+const getWord = async function () {
     const res = await fetch (
         "https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt"
         );
      const words = await res.text();
      //console.log(words);
-     const wordArray = words.split("/n"); //adds a delimeter to split the array of words with a line break
+     const wordArray = words.split("\n"); //adds a delimeter to split the array of words with a line break
      //console.log(wordArray);
      const randomIndex = Math.floor(Math.random()* wordArray.length);
      word = wordArray[randomIndex].trim();
      inProgressDots(word);
 };
 
-getWord(); */
+getWord(); 
 
 
 //Step 2 - Placeholder Function that will add placeholder dots for each letter
@@ -85,7 +85,7 @@ const checkInput = function(input) {
 const makeGuess = function(guessed) {
     guessed = guessed.toUpperCase(); 
         if (guessedLetters.includes(guessed)) {
-            messagePara.innerHTML = `Whoops! You guessed the letter ${txtInput.value.toUpperCase()} already. Please try again.`;
+            messagePara.innerHTML = `Whoops! You guessed the letter ${guessed} already. Please try again.`;
         } else {
             guessedLetters.push(guessed);
             console.log(guessedLetters);

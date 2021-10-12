@@ -69,9 +69,9 @@ const checkInput = function(input) {
     if(input.length === 0) {
         messagePara.innerHTML = "Whoops, you forgot to guess a letter!";
     } else if (input.length > 1) {
-        messagePara.innerHTML = `Whoa there, just one letter at a time. You typed in ${input.length} letters, silly!`
+        messagePara.innerHTML = `Whoa there, just one letter at a time. You typed in ${input.length} letters, silly!`;
     } else if (!input.match(acceptedLetter)) {
-        messagePara.innerHTML =`Hmmm, you entered ${input} and we're looking for just a letter from A to Z.`
+        messagePara.innerHTML =`Hmmm, you entered ${input} and we're looking for just a letter from A to Z.`;
     } else {
         messagePara.innerHTML = `You guessed the letter ${input.toUpperCase()}`;
         return input;
@@ -91,9 +91,9 @@ const makeGuess = function(guessed) {
             guessedLetters.push(guessed);
             console.log(guessedLetters);
             updateGuesses(guessed);
+            countGuesses(guessed);
+            updateWord(guessedLetters);
         } 
-        countGuesses(guessed);
-        updateWord(guessedLetters);
 };
 
 //Step 4: Create a Function to Show the Guessed Letters

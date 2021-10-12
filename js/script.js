@@ -52,7 +52,7 @@ const inProgressDots = function (word) {
 
 //Step 2 - event listener for button
 guessButton.addEventListener("click", function(e) {
-    e.preventDefault();
+    e.preventDefault(); //cancels the event if it is cancelable
     const lettersGuessed = txtInput.value; //grab the value that was entered
     console.log(lettersGuessed);
     messagePara.value = ""; //empty the message value between tries
@@ -145,7 +145,7 @@ const countGuesses = function(guess) {
         if (remainingGuesses === 0) {
             messagePara.innerHTML =  `Oh no! You are all out of guesses. The word was "${word.toUpperCase()}". Better luck next time! Click the button to play again!`;
             startOver();
-            remainingGuesses = 8;
+            //remainingGuesses = 8;
         } else if (remainingGuesses === 1) {
             span.innerHTML =  `just 1 guess`;
         } else {
@@ -164,11 +164,26 @@ const checkWin = function() {
 
 //Step 6: Play it Again!
 const startOver = function () {
-    guessButton.classList.add("hide");
-    guessesRemaining.classList.add("hide");
-    lettersGuessed.classList.add("hide");
-    playAgainButton.classList.remove("hide");
+    guessButton.classList.add("hide"); //hide the Guess! button
+    guessesRemaining.classList.add("hide"); //hide the paragraph noting how many guesses remain
+    lettersGuessed.classList.add("hide");// hide the list of letters that have been guessed
+    inProgress.classList.add("hide"); //hide the paragraph that shows the word in progress letters/dots
+    playAgainButton.classList.remove("hide"); //show the Play Again! button
 };
 
-
+//Add a click event to the Play again button
+playAgainButton.addEventListener("click", function() {
+    messagePara.classList.remove("win"); //clear the win banner
+    messagePara.innerHTML = ""; //clear the message paragraph
+    lettersGuessed.innerHTML = ""; //clear the paragraph with previous letters guessed
+    remainingGuesses = 6; //reset number of guesses remaining
+    guessedLetters.splice(0, guessedLetters.length); //remove all letters from the guessedLetters array
+    span.innerHTML = `${remainingGuesses} guesses`; //update the # of guesses
+    playAgainButton.classList.add("hide"); //hide the Play Again! button
+    guessButton.classList.remove("hide"); //show the guess button
+    guessesRemaining.classList.remove("hide"); //show the paragraph noting how many guesses remain
+    lettersGuessed.classList.remove("hide");// show the list of letters that have been guessed
+    getWord();//run the function to get a new word
+    inProgress.classList.remove("hide"); //
+});
 
